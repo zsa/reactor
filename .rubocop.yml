@@ -1,0 +1,12 @@
+LineLength:
+  Enabled: false
+StringLiterals:
+  Enabled: true
+ClassLength:
+  Max: 200
+Documentation:
+  Enabled: false
+MethodLength:
+  Max: 20
+SignalException:
+  Enabled: false

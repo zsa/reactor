@@ -16,6 +16,9 @@ This project will output [JSON file](keyboard_layout.json) for the full layout (
 
 ## Procedure
 
+0. Take the JSON from the request
 1. Generate a UUID
-2. clone http://github.com/jackhumbert/qmk_firmware to /tmp/{uuid}
-3. generate a .c file based on the JSON into the appropriate folder
+2. Clone http://github.com/jackhumbert/qmk_firmware to /tmp/{uuid}
+3. Generate a .c file based on the JSON into the appropriate folder (/tmp/{uuid}/keyboard/{type}/keymaps/keymap_{uuid}.c)
+4. cd /tmp/{uuid}/keyboard/{type} && make KEYMAP="{uuid}"
+5. take the {type}.hex and serve it back in the response
