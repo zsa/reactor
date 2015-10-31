@@ -5,6 +5,12 @@ require 'liquid'
 
 configure { set :server, :puma }
 
+COLUMNS = {
+    'ergodox_ez' => [7,7,6,7,5,2,1,3,7,7,6,7,5,2,1,3],
+    'planck' => [12,12,12,11],
+    'preonic' => [12,12,12,12,12]
+}
+
 post '/' do
   uuid = SecureRandom.uuid()
 
@@ -12,7 +18,7 @@ post '/' do
   layout = JSON.load(request.body.read)
   type = layout['type']
 
-  c_file = Liquid::Template.parse(tpl).render({'columns' => [7,7,6,7,5,2,1,3,7,7,6,7,5,2,1,3], 'layout' => layout})
+  c_file = Liquid::Template.parse(tpl).render({'columns' => COLUMNS[type], 'layout' => layout})
 
   # TODO: Commenting these out, for now - makes testing faster, but will wreak havoc
   # Also - cp is very slow
@@ -28,6 +34,7 @@ post '/' do
   puts "qmk_firmware/#{uuid}/keyboard/#{type}"
 
   `cd qmk_firmware/keyboard/#{type} && make KEYMAP="#{uuid}"`
+  #`make -f qmk_firmware/keyboard/#{type}/Makefile KEYMAP="#{uuid}"`
 
   status = 200
 
