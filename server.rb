@@ -12,11 +12,11 @@ COLUMNS = {
 }
 
 post '/' do
-  uuid = SecureRandom.uuid()
-
-  tpl = File.read('./templates/ergodox_ez.liquid')
   layout = JSON.load(request.body.read)
   type = layout['type']
+
+  uuid = SecureRandom.uuid()
+  tpl = File.read("./templates/#{type}.liquid")
 
   c_file = Liquid::Template.parse(tpl).render({'columns' => COLUMNS[type], 'layout' => layout})
 
@@ -27,14 +27,11 @@ post '/' do
 
   output_file = "qmk_firmware/keyboard/#{type}/keymaps/keymap_#{uuid}.c"
 
-  f = File.new(output_file, "w")
+  f = File.new(output_file, 'w')
   f.write(c_file)
   f.close
 
-  puts "qmk_firmware/#{uuid}/keyboard/#{type}"
-
   `cd qmk_firmware/keyboard/#{type} && make KEYMAP="#{uuid}"`
-  #`make -f qmk_firmware/keyboard/#{type}/Makefile KEYMAP="#{uuid}"`
 
   status = 200
 
@@ -44,5 +41,10 @@ post '/' do
     status = 400
   end
 
-  [status, hex]
+  headers = {
+      'Content-Disposition' => "attachment;filename=#{type}.hex",
+      'Content-Type' => 'application/octet-stream'
+  }
+
+  [status, headers, hex]
 end
