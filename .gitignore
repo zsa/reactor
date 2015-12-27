@@ -39,3 +39,9 @@ build/
 # Created by .ignore support plugin (hsz.mobi)
 
 /qmk_firmware/
+
+# Ignore rvm configurations
+.ruby-*
+
+# Ignore Gemfile.lock because it's a gem
+Gemfile.lock
