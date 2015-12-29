@@ -1,3 +1,6 @@
+AllCops:
+  Exclude:
+    - 'lib/firmware/**/*'
 LineLength:
   Enabled: false
 StringLiterals:
