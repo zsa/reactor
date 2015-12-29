@@ -3,7 +3,7 @@ module KeyboardReactor
     def initialize(keyboard_json = nil, tmp_dir: nil, keyboard_hash: nil)
       @tmp_dir = tmp_dir || self.class.relative_path('tmp')
       @keyboard_hash = keyboard_hash || MultiJson.load(keyboard_json)
-      @id = (Time.now.to_f * 100).round
+      @id = "#{(Time.now.to_f * 100).round}reactor"
     end
 
     attr_reader :tmp_dir, :keyboard_hash, :find_type, :id

@@ -11,7 +11,9 @@
 /test/version_tmp/
 /tmp/
 
+# Ignore files that we create
 lib/tmp/*
+*reactor.c
 
 ## Specific to RubyMotion:
 .dat*

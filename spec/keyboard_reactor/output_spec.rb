@@ -28,8 +28,6 @@ describe KeyboardReactor::Output do
   describe :write_output do
     it 'calls what it should call' do
       keyboard_reactor = KeyboardReactor::Output.new(ergodox_json)
-      pp keyboard_reactor.firmware_path
-      pp keyboard_reactor.c_file_path
       keyboard_reactor.write_hex_file
     end
   end
