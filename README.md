@@ -1,27 +1,49 @@
 # Reactor
 
-Reactor is the firmware generator part of Fusion. The intention for it is to be installed as a service somewhere.
-It will take the JSON's exported by the Fusion project and process them in to ready-to-be-uploaded firmware.
+Reactor is the firmware generator part of [Fusion](https://github.com/ErgoDox-EZ/fusion).
 
-Reactor uses the awesome [qmk_firmware](http://github.com/jackhumbert/qmk_firmware) by Jack Humbert.
+It takes the JSON's exported by the Fusion project and process them in to ready-to-be-downloaded firmware.
 
-## Fusion
-Fusion is a web-based, open source keyboard-layout maker.
+Reactor uses the awesome [qmk_firmware](http://github.com/jackhumbert/qmk_firmware) by Jack Humbert. The firmware is included through a git  subtree. To update the firmware, check out [updating the firmware](#updating-the-firmware).
 
-It's supports multiple keyboard types: Ergodox EZ, and [ortholinear](http://ortholinearkeyboards.com)'s Planck and Preonic are currently supported.
-
-As long as your keyboard firmware supports/uses [keycode.h](keycode.h) it should be relatively easy to get it supported.
-
-This project will output [JSON file](keyboard_layout.json) for the full layout (including layers).
 
 ## General process
 
-0. Take the JSON from the request
-1. Generate a UUID
-2. Copy a cloned http://github.com/jackhumbert/qmk_firmware to /tmp/{uuid}
-3. Generate a .c file based on the JSON into the appropriate folder (/tmp/{uuid}/keyboard/{type}/keymaps/keymap_{uuid}.c)
-4. cd /tmp/{uuid}/keyboard/{type} && make KEYMAP="{uuid}"
-5. take the {type}.hex and serve it back in the response
+- Initialize and set tmp directory if it's passed
+- Take JSON input
+- Generate a .c template file base on the JSON and the liquid template named for the type value in in the JSON
+- Return the .hex file created from running make with that file.
+
+## Updating the firmware
+
+The qmk_firmware is included in this repository as a git subtree. Any **changes to qmk_firmware should be made to the [qmk_firmware repository](http://github.com/jackhumbert/qmk_firmware)**. 
+
+To update the subtree from the qmk_firmware repository, pull the updates from qmk_firmware into this repository.
+
+**If you don't have the remote and the subtree setup:**
+
+1. Add the remote for qmk_firmware
+    
+    `git remote add -f  qmk_firmware git@github.com:jackhumbert/qmk_firmware.git`
+
+2. Add the subtree
+    
+    `git subtree add --prefix lib/firmware qmk_firmware master --squash`
+
+**If you have the remote and subtree setup:**
+
+1. Fetch the updates
+
+    `git fetch qmk_firmware master`
+
+2. Update the subtree
+    
+    `git subtree pull --prefix lib/firmware qmk_firmware master --squash`
+
+
+
+
+<sub>[Read more about git subtrees here](http://blogs.atlassian.com/2013/05/alternatives-to-git-submodule-git-subtree/)</sub>
 
 ### Compiling firmware
 
