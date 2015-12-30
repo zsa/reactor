@@ -25,7 +25,7 @@ module KeyboardReactor
     end
 
     def hex_file_path
-      self.class.relative_path("#{firmware_path}/keymap_#{@id}")
+      self.class.relative_path("#{firmware_path}/#{@id}.hex")
     end
 
     def write_output(keyboard_json)
@@ -56,7 +56,8 @@ module KeyboardReactor
 
     def write_hex_file
       write_c_file
-      `cd #{firmware_path.to_s} && make KEYMAP="#{id}"`
+      # Override the default target with our ID so that we create unique files
+      `cd #{firmware_path.to_s} && make clean && TARGET=#{id} make -e KEYMAP="#{id}"`
     end
 
     # post '/' do
