@@ -9,14 +9,17 @@ Reactor uses the awesome [qmk_firmware](http://github.com/jackhumbert/qmk_firmwa
 
 ## General process
 
-- Initialize and set tmp directory if it's passed
 - Take JSON input
 - Generate a .c template file base on the JSON and the liquid template named for the type value in in the JSON
-- Return the .hex file created from running make with that file.
+- Return the .hex file created from running make with that file
+
+# Local development
+
+You can run the tests with `be guard` - which will watch for changes in ruby files and run whenever they do
 
 ## Updating the firmware
 
-The qmk_firmware is included in this repository as a git subtree. Any **changes to qmk_firmware should be made to the [qmk_firmware repository](http://github.com/jackhumbert/qmk_firmware)**. 
+The qmk_firmware is included in this repository as a git subtree. Any **changes to qmk_firmware should be made to the [qmk_firmware repository](http://github.com/jackhumbert/qmk_firmware)** not this repository.
 
 To update the subtree from the qmk_firmware repository, pull the updates from qmk_firmware into this repository.
 
@@ -39,9 +42,6 @@ To update the subtree from the qmk_firmware repository, pull the updates from qm
 2. Update the subtree
     
     `git subtree pull --prefix lib/firmware qmk_firmware master --squash`
-
-
-
 
 <sub>[Read more about git subtrees here](http://blogs.atlassian.com/2013/05/alternatives-to-git-submodule-git-subtree/)</sub>
 
