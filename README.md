@@ -10,8 +10,9 @@ Reactor uses the awesome [qmk_firmware](http://github.com/jackhumbert/qmk_firmwa
 ## General process
 
 - Take JSON input
-- Generate a .c template file base on the JSON and the liquid template named for the type value in in the JSON
-- Return the .hex file created from running make with that file
+- Generate a .c template file based on the JSON and the liquid template. Name it something unique
+- Create a hex file by compiling that c file. Name it something unique too
+- read .hex file and return it
 
 # Local development
 
