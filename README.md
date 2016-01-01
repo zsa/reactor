@@ -12,11 +12,13 @@ Reactor uses the awesome [qmk_firmware](http://github.com/jackhumbert/qmk_firmwa
 - Take JSON input
 - Generate a .c template file based on the JSON and the liquid template. Name it something unique
 - Create a hex file by compiling that c file. Name it something unique too
-- read .hex file and return it
+- Read .hex file and return it
 
 # Local development
 
-You can run the tests with `be guard` - which will watch for changes in ruby files and run whenever they do
+You can run the tests with `be guard` - which will watch for changes in ruby files and run whenever they do.
+
+Testing is done in ruby 2.2.2
 
 ## Updating the firmware
 
@@ -72,7 +74,3 @@ Then run `make` for the default keymap, or
     
 for your own keymap. This requires a files keymap_yourown.c in the subfolder keymaps.
 You should end up with a `ergodox_ez.hex` file, which you can use with the [Teensy loader](http://www.pjrc.com/teensy/loader_cli.html) or [Teensy GUI](https://www.pjrc.com/teensy/loader.html)
-
-## License
-
-MIT, see LICENSE

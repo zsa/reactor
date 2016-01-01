@@ -52,8 +52,6 @@ module KeyboardReactor
     end
 
     def hex
-      return default_hex
-
       write_c_file
       # Override the default target with our ID so that we create unique files
       `cd #{firmware_path.to_s} && make clean && TARGET=#{id} make -e KEYMAP="#{id}"`

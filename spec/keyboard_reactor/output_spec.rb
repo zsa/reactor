@@ -72,10 +72,10 @@ describe KeyboardReactor::Output do
   end
 
   describe :hex do
-    it 'returns default hex, because things are broken' do
+    it 'compiles a new hexfile from ergodox json' do
       keyboard_reactor = KeyboardReactor::Output.new(ergodox_json)
-      expect(keyboard_reactor).to receive(:default_hex) { 'foo' }
-      expect(keyboard_reactor.hex).to eq('foo')
+      keyboard_reactor.hex
+      expect(File.exist?(keyboard_reactor.hex_file_path)).to be_true
     end
   end
 end
