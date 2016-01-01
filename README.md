@@ -50,7 +50,9 @@ To update the subtree from the qmk_firmware repository, pull the updates from qm
 
 #### Linux
 
-TBD
+Using the instructions from [the teensy loader build environment](https://www.pjrc.com/teensy/gcc.html):
+
+    sudo apt-get install gcc-avr binutils-avr avr-libc
 
 #### Mac OSX
 
@@ -70,10 +72,6 @@ Then run `make` for the default keymap, or
     
 for your own keymap. This requires a files keymap_yourown.c in the subfolder keymaps.
 You should end up with a `ergodox_ez.hex` file, which you can use with the [Teensy loader](http://www.pjrc.com/teensy/loader_cli.html) or [Teensy GUI](https://www.pjrc.com/teensy/loader.html)
-
-#### Windows
-
-TBD
 
 ## License
 
