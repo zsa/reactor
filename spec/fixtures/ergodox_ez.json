@@ -348,7 +348,7 @@
     {
       "description": "Symbol Layer",
       "properties": {},
-      "keymap": [
+      "keys": [
         {
           "code": "KC_TRANSPARENT",
           "label": ""
@@ -690,7 +690,7 @@
     {
       "description": "Media and mouse keys",
       "properties": {},
-      "keymap": [
+      "keys": [
         {
           "code": "KC_TRANSPARENT",
           "label": ""
