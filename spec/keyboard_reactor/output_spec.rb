@@ -12,21 +12,22 @@ describe KeyboardReactor::Output do
         expect(keyboard_reactor.keyboard_hash['layers'][0]['keymap'].count).to eq 84
       end
     end
+    context 'passed keyboard_json wrapped in layout'
   end
 
-  describe 'find_type' do
-    it "raises an error if the type isn't known" do
-      expect { KeyboardReactor::Output.new(keyboard_hash: { 'type' => 'cool keyboard' }).keyboard_type }.to raise_error
+  describe 'find_kind' do
+    it "raises an error if the kind isn't known" do
+      expect { KeyboardReactor::Output.new(keyboard_hash: { 'kind' => 'cool keyboard' }).keyboard_kind }.to raise_error
     end
-    it 'returns the type' do
-      expect(KeyboardReactor::Output.new(keyboard_hash: { 'type' => 'ergodox_ez' }).keyboard_type).to eq('ergodox_ez')
+    it 'returns the kind' do
+      expect(KeyboardReactor::Output.new(keyboard_hash: { 'kind' => 'ergodox_ez' }).keyboard_kind).to eq('ergodox_ez')
     end
   end
 
   describe 'layout_template' do
-    %w(ergodox_ez planck preonic).each do |layout_type|
-      it "finds the layout file for #{layout_type}" do
-        keyboard_reactor = KeyboardReactor::Output.new(keyboard_hash: { 'type' => layout_type })
+    %w(ergodox_ez planck preonic).each do |layout_kind|
+      it "finds the layout file for #{layout_kind}" do
+        keyboard_reactor = KeyboardReactor::Output.new(keyboard_hash: { 'kind' => layout_kind })
         expect(keyboard_reactor.layout_template).to_not be_nil
       end
     end
@@ -34,7 +35,7 @@ describe KeyboardReactor::Output do
 
   describe 'read hex file' do
     it "fails if a file isn't present" do
-      keyboard_reactor = KeyboardReactor::Output.new(keyboard_hash: { 'type' => 'ergodox_ez' })
+      keyboard_reactor = KeyboardReactor::Output.new(keyboard_hash: { 'kind' => 'ergodox_ez' })
       keyboard_reactor.delete_existing_compilations
       expect { keyboard_reactor.read_hex_file }.to raise_error
     end
@@ -49,7 +50,7 @@ describe KeyboardReactor::Output do
 
   describe 'write_c_file' do
     it 'writes a c file' do
-      keyboard_reactor = KeyboardReactor::Output.new(keyboard_hash: { 'type' => 'ergodox_ez' })
+      keyboard_reactor = KeyboardReactor::Output.new(keyboard_hash: { 'kind' => 'ergodox_ez' })
       c_file = keyboard_reactor.c_file_path
       expect(File.exist?(c_file)).to be_false
       keyboard_reactor.write_c_file
@@ -62,7 +63,7 @@ describe KeyboardReactor::Output do
     # we're ensuring that we can correctly compile a hex file as a test
     it 'writes the default hex file' do
       keyboard_reactor = KeyboardReactor::Output.new(keyboard_hash: {})
-      keyboard_reactor.keyboard_type = 'ergodox_ez'
+      keyboard_reactor.keyboard_kind = 'ergodox_ez'
       firmware_dir = keyboard_reactor.firmware_path
       hex_file = "#{firmware_dir}/ergodox_ez.hex"
       keyboard_reactor.delete_existing_compilations

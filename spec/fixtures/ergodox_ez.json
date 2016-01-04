@@ -1,5 +1,5 @@
 {
-  "type": "ergodox_ez",
+  "kind": "ergodox_ez",
   "description": "ErgoDox EZ default layout",
   "properties": {},
   "layers": [

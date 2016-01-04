@@ -5,19 +5,19 @@ module KeyboardReactor
       @id = "#{(Time.now.to_f * 100).round}reactor"
     end
 
-    attr_reader :tmp_dir, :keyboard_hash, :find_type, :id
-    attr_writer :keyboard_type
+    attr_reader :tmp_dir, :keyboard_hash, :find_kind, :id
+    attr_writer :keyboard_kind
 
     def self.relative_path(path)
       File.expand_path(path, BASE_DIR)
     end
 
-    def self.known_types
+    def self.known_kinds
       COLUMNS.keys
     end
 
     def firmware_path
-      self.class.relative_path("firmware/keyboard/#{keyboard_type}")
+      self.class.relative_path("firmware/keyboard/#{keyboard_kind}")
     end
 
     def c_file_path
@@ -28,21 +28,21 @@ module KeyboardReactor
       @hex_file_path ||= self.class.relative_path("#{firmware_path}/#{@id}.hex")
     end
 
-    def keyboard_type
-      @keyboard_type ||= @keyboard_hash['type']
-      return @keyboard_type.to_s if self.class.known_types.include?(@keyboard_type)
-      fail "Unknown keyboard type '#{@keyboard_type}', not one of #{self.class.known_types}"
+    def keyboard_kind
+      @keyboard_kind ||= @keyboard_hash['kind']
+      return @keyboard_kind.to_s if self.class.known_kinds.include?(@keyboard_kind)
+      fail "Unknown keyboard kind '#{@keyboard_kind}', not one of #{self.class.known_kinds}"
     end
 
     def layout_template
-      path = "./keyboard_reactor/templates/#{keyboard_type}.liquid"
+      path = "./keyboard_reactor/templates/#{keyboard_kind}.liquid"
       File.read(self.class.relative_path(path))
     end
 
     def c_file
       Liquid::Template.parse(layout_template)
         .render(
-          'columns' => COLUMNS[keyboard_type],
+          'columns' => COLUMNS[keyboard_kind],
           'layout' => @keyboard_hash
         )
     end
@@ -68,7 +68,7 @@ module KeyboardReactor
     end
 
     def default_hex
-      @hex_file_path = "#{firmware_path}/#{keyboard_type}.hex"
+      @hex_file_path = "#{firmware_path}/#{keyboard_kind}.hex"
       `cd #{firmware_path.to_s} && make clean && make KEYMAP="default"`
       read_hex_file
     end
