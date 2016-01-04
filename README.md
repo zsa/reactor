@@ -9,14 +9,20 @@ Reactor uses the awesome [qmk_firmware](http://github.com/jackhumbert/qmk_firmwa
 
 ## General process
 
-- Initialize and set tmp directory if it's passed
 - Take JSON input
-- Generate a .c template file base on the JSON and the liquid template named for the type value in in the JSON
-- Return the .hex file created from running make with that file.
+- Generate a .c template file based on the JSON and the liquid template. Name it something unique
+- Create a hex file by compiling that c file. Name it something unique too
+- Read .hex file and return it
+
+# Local development
+
+You can run the tests with `be guard` - which will watch for changes in ruby files and run whenever they do.
+
+Testing is done in ruby 2.2.2
 
 ## Updating the firmware
 
-The qmk_firmware is included in this repository as a git subtree. Any **changes to qmk_firmware should be made to the [qmk_firmware repository](http://github.com/jackhumbert/qmk_firmware)**. 
+The qmk_firmware is included in this repository as a git subtree. Any **changes to qmk_firmware should be made to the [qmk_firmware repository](http://github.com/jackhumbert/qmk_firmware)** not this repository.
 
 To update the subtree from the qmk_firmware repository, pull the updates from qmk_firmware into this repository.
 
@@ -40,16 +46,15 @@ To update the subtree from the qmk_firmware repository, pull the updates from qm
     
     `git subtree pull --prefix lib/firmware qmk_firmware master --squash`
 
-
-
-
 <sub>[Read more about git subtrees here](http://blogs.atlassian.com/2013/05/alternatives-to-git-submodule-git-subtree/)</sub>
 
 ### Compiling firmware
 
 #### Linux
 
-TBD
+Using the instructions from [the teensy loader build environment](https://www.pjrc.com/teensy/gcc.html):
+
+    sudo apt-get install gcc-avr binutils-avr avr-libc
 
 #### Mac OSX
 
@@ -69,11 +74,3 @@ Then run `make` for the default keymap, or
     
 for your own keymap. This requires a files keymap_yourown.c in the subfolder keymaps.
 You should end up with a `ergodox_ez.hex` file, which you can use with the [Teensy loader](http://www.pjrc.com/teensy/loader_cli.html) or [Teensy GUI](https://www.pjrc.com/teensy/loader.html)
-
-#### Windows
-
-TBD
-
-## License
-
-MIT, see LICENSE

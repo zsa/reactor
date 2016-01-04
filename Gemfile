@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+gemspec
+
 group :development, :test do
   gem 'rspec',      '~> 2.14.1'
   gem 'bundler'
@@ -8,8 +10,3 @@ group :development, :test do
   gem 'guard-rubocop'
   gem 'rubocop'
 end
-
-gem 'rake'
-gem 'liquid'
-gem 'rake-compiler'
-gem 'multi_json'
