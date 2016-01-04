@@ -6,7 +6,7 @@
     {
       "description": "Basic layer",
       "properties": {},
-      "keymap": [
+      "keys": [
         {
           "code": "KC_KP_EQUAL",
           "label": "="

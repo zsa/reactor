@@ -2,6 +2,7 @@ module KeyboardReactor
   class Output
     def initialize(keyboard_json = nil, keyboard_hash: nil)
       @keyboard_hash = keyboard_hash || MultiJson.load(keyboard_json)
+      remap_keyboard_hash
       @id = "#{(Time.now.to_f * 100).round}reactor"
     end
 
@@ -14,6 +15,19 @@ module KeyboardReactor
 
     def self.known_kinds
       COLUMNS.keys
+    end
+
+    def remap_keyboard_hash
+      # Because I don't know how to change the template to use `keys` instead of `keymap`
+      @keyboard_hash['layers'] = remapped_layers.select { |l| l['keymap'] && l['keymap'].any? }
+    end
+
+    def remapped_layers
+      return {} unless @keyboard_hash['layers']
+      @keyboard_hash['layers'].map do |layer|
+        layer['keymap'] = layer.delete('keys')
+        layer
+      end
     end
 
     def firmware_path
