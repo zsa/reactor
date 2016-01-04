@@ -60,8 +60,8 @@
           "label": "T"
         },
         {
-          "code": "TO(1)",
-          "label": "TO1"
+          "code": "TG(1)",
+          "label": "TG1"
         },
         {
           "code": "KC_BSPACE",
@@ -188,8 +188,8 @@
           "label": "-"
         },
         {
-          "code": "TO(1)",
-          "label": "TO1"
+          "code": "TG(1)",
+          "label": "TG1"
         },
         {
           "code": "KC_Y",
@@ -586,7 +586,7 @@
           "label": ""
         },
         {
-          "code": "",
+          "code": "KC_TRANSPARENT",
           "label": ""
         },
         {
